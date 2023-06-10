@@ -1,0 +1,178 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Book {
+  + Book(): 
+  + Book(String, int, int, Name, String, Borrow): 
+  - Book(Name, String): 
+  - author: Name
+  - ISBN: String
+  + equals(Book): boolean
+  + getISBN(): String
+  + getAuthor(): Name
+  + setAuthor(Name): void
+  + setISBN(String): void
+  + toString(): String
+}
+class Borrow {
+  ~ Borrow(): 
+  + Borrow(NewDate, NewDate, LibraryMember): 
+  - acquisitionDate: NewDate
+  - dueDate: NewDate
+  - who: LibraryMember
+  + getDueDate(): NewDate
+  + getAcquisitionDate(): NewDate
+  + getWho(): LibraryMember
+  + setWho(LibraryMember): void
+  + toString(): String
+  + setAcquisitionDate(NewDate): void
+  + setDueDate(NewDate): void
+}
+class CD {
+  + CD(String, int, int, int, Name, Borrow): 
+  - CD(int, Name): 
+  + CD(): 
+  - trackNo: int
+  - composer: Name
+  + getComposer(): Name
+  + setTrackNo(int): void
+  + getTrackNo(): int
+  + setComposer(Name): void
+  + toString(): String
+  + equals(CD): boolean
+}
+class Library {
+  + Library(String): 
+  + Library(): 
+  - list: ArrayList<LibraryItem>
+  - libraryName: String
+  + searchForItem(String): LibraryItem
+  + searchForItem(int): LibraryItem
+  + addLibraryItem(LibraryItem): boolean
+  + updateItem(LibraryItem): boolean
+  + libraryReport(): void
+  + searchForItem(Name): LibraryItem
+  + removeLibraryItem(LibraryItem): boolean
+}
+class LibraryDriver {
+  + LibraryDriver(): 
+  + main(String[]): void
+}
+class LibraryItem {
+  + LibraryItem(): 
+  + LibraryItem(String, int, int, Borrow): 
+  - borrow: Borrow
+  - numberOfCopies: int
+  - title: String
+  - NumberOfborrow: int
+  + compareTo(LibraryItem): int
+  + setNumberOfborrow(int): void
+  + getTitle(): String
+  + getNumberOfCopies(): int
+  # setTitle(String): void
+  + getNumberOfborrow(): int
+  + toString(): String
+  # setNumberOfCopies(int): void
+}
+class LibraryMember {
+  + LibraryMember(Name, String, String, NewDate, int, String): 
+  + LibraryMember(): 
+  - LibraryItem: List<LibraryItem>
+  - name: Name
+  - address: Address
+  - dateOfBirth: NewDate
+  - phoneNumber: String
+  - emailAddress: String
+  - NumberOfborrowedItems: int
+  + setDateOfBirth(NewDate): void
+  + getNumberOfborrowedItems(): int
+  + setPhoneNumber(String): void
+  + getEmailAddress(): String
+  + getDateOfBirth(): NewDate
+  + getLibraryItem(): List<LibraryItem>
+  + getPhoneNumber(): String
+  + setEmailAddress(String): void
+  + addLibraryItem(LibraryItem): boolean
+  + setName(Name): void
+  + borrowLibraryItem(LibraryItem): boolean
+  + toString(): String
+  + getName(): Name
+  + getAddress(): Address
+  + setNumberOfborrowedItems(int): void
+  + setAddress(Address): void
+}
+class Name {
+  + Name(String, String, String): 
+  + Name(): 
+  + Name(String, String): 
+  - firstName: String
+  - middleName: String
+  - lastName: String
+  + setLastName(String): void
+  + getFirstName(): String
+  + setFirstName(String): void
+  + getLastName(): String
+  + getMiddleName(): String
+  + setMiddleName(String): void
+  + toString(): String
+}
+class NewDate {
+  + NewDate(): 
+  + NewDate(String, String, String): 
+  - Day: String
+  - Year: String
+  - Month: String
+  + setDay(String): void
+  + getDay(): String
+  + getMonth(): String
+  + toString(): String
+  + setMonth(String): void
+  + getYear(): String
+  + setYear(String): void
+}
+class Professor {
+  + Professor(Name, String, String, NewDate, int, double, String): 
+  + Professor(): 
+  - salary: double
+  + toString(): String
+  + setSalary(double): void
+  + getSalary(): double
+}
+class Student {
+  + Student(Name, String, String, NewDate, int, int, double, String): 
+  + Student(): 
+  - Student(int, double): 
+  - studentNumber: int
+  - averageMark: double
+  + IsEligibleToEnroll(double): boolean
+  + setAverageMark(double): void
+  + setStudentNumber(int): void
+  + getAverageMark(): double
+  + toString(): String
+  + getStudentNumber(): int
+}
+class address {
+  + address(string): 
+  + address(): 
+  - city: string
+  - street: string
+  - buildingname: string
+  - country: string
+  - pobox: int
+  + setbuildingname(string): void
+  + getcountry(): string
+  + setcountry(string): void
+  + getpobox(): int
+  + getcity(): string
+  + setstreet(string): void
+  + tostring(): string
+  + getbuildingname(): string
+  + setpobox(int): void
+  + setcity(string): void
+  + getstreet(): string
+}
+
+@enduml
