@@ -33,8 +33,8 @@ public class Borrow {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Acquisition Date: ").append(acquisitionDate).append("\n");
-        sb.append("Due Date: ").append(dueDate).append("\n");
+        sb.append("Acquisition Date:").append(acquisitionDate).append("\n");
+        sb.append("Due Date:").append(dueDate).append("\n");
        
         return sb.toString();
     }
@@ -52,7 +52,7 @@ public class Borrow {
 
 
 	public void setAcquisitionDate(NewDate ascquisitionDate) {
-		this.acquisitionDate = acquisitionDate;
+		this.acquisitionDate = ascquisitionDate;
 	}
 
 

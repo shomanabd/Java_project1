@@ -6,7 +6,7 @@
 
 package Library;
 
-public abstract class LibraryItem implements Comparable<LibraryItem>{
+public abstract class LibraryItem implements Comparable<LibraryItem>,  Cloneable{
 	// the class have CompareTo method so you can use sort for 
 	// It  compare LibraryItem based on how often they  have been borrowed.
 	
@@ -61,11 +61,23 @@ public abstract class LibraryItem implements Comparable<LibraryItem>{
 	public String toString() {
 		
 		// return string represent the object information
-		return "title :"+title+" number of copies :"+numberOfCopies +
-		" NumberOfborrow "+NumberOfborrow		+" "+borrow.toString();
+		return "title:"+title+"\n"+"number of copies:"+numberOfCopies +
+		"\n"+"NumberOfborrow:"+NumberOfborrow		+"\n"+borrow.toString();
 	}
 	
 	
+	
+	
+	// override clone method 
+	@Override
+	protected Object clone()  {
+		try {
+		return super.clone();
+		
+		}catch(java.lang.CloneNotSupportedException ex) {
+			return null;
+		}
+	}
 	
 	
 	
@@ -73,7 +85,7 @@ public abstract class LibraryItem implements Comparable<LibraryItem>{
 	//  getters and setters 
 	
 
-
+	
 
 	// to get the title of the item
 	public String getTitle() {
@@ -103,6 +115,16 @@ public abstract class LibraryItem implements Comparable<LibraryItem>{
 
 	public void setNumberOfborrow(int numberOfborrow) {
 		NumberOfborrow = numberOfborrow;
+	}
+
+
+	public Borrow getBorrow() {
+		return borrow;
+	}
+
+
+	public void setBorrow(Borrow borrow) {
+		this.borrow = borrow;
 	}
 	
 	

@@ -62,8 +62,8 @@ public class CD extends LibraryItem {
 		@Override
 		public String toString() {
 			
-			return super.toString()+" trackNo :"+trackNo+
-					" Name :"+composer.toString();
+			return super.toString()+"trackNo:"+trackNo+"\n"
+					+"composer:"+composer.toString();
 		}
 		
 		

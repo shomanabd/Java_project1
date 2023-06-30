@@ -31,6 +31,7 @@ public class Name {
 	public Name(String firstName,  String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.middleName="empty";
 	}
 	
 	
@@ -54,11 +55,24 @@ public class Name {
 		
 		return firstName+" "+middleName+" "+lastName;
 	}
-
+	
+	
+	
+	
+	
+	// compare two name objects 
+	public boolean equals(Name name) {
+		// TODO Auto-generated method stub
+		return (this.firstName.equals(name.getFirstName())) &&
+			   (this.middleName.equals(name.getMiddleName()))&&
+			   (this.lastName.equals(name.getLastName()));
+	}
 	
 	
 	
 	// getters and setters
+
+
 
 
 	// get first name 

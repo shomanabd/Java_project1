@@ -8,13 +8,14 @@ import java.util.Scanner;
 public  class Library {
 	
 	
-	
+	// list to store library member it can be student or professor 
+    private ArrayList<LibraryMember> members;
 	// list to store library item it can be book or cd 
     private ArrayList<LibraryItem> list;
     // Store the name of library 
     private String libraryName;
     
- 
+
     
     
     // default constructor
@@ -31,6 +32,7 @@ public  class Library {
     	
         this.libraryName = libraryName;
         this.list = new ArrayList<>();
+        this.members=new ArrayList<>();
     }
   
    
@@ -43,7 +45,7 @@ public  class Library {
 	public boolean addLibraryItem(LibraryItem x) {   	
 
      // check if item is exist or not 
-		if(list.indexOf(x)<0) {
+		if(searchForItem( x.getTitle())==null) {
         // Add the item to the list
         list.add(x);
         System.out.println("added successfully");
@@ -61,24 +63,87 @@ public  class Library {
     
     
     
-    
-	// to add new item into the school library
+    // to add new member into the school library
+	// return true if added successfully else return false
+	public boolean addLibraryMember(LibraryMember x) {   	
+
+     // check if member is exist or not 
+		if(searchForMember( x.getName())==null) {
+        // Add the item to the list
+        members.add(x);
+        System.out.println("added successfully");
+        return true;
+    }
+		else {
+			System.out.println("already exist !");
+			
+			return false;
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	// to remove  item from the school library based on title
 	// return true if remove successfully else return false
-		public boolean removeLibraryItem(LibraryItem x) {   	
+		public boolean removeLibraryItem(String title) {   	
 
 	     // check if item is exist or not 
-			if(list.indexOf(x)<0) {
+			if(searchForItem( title)==null) {
 
 	        System.out.println("item not found !");
 	        return false;
 	    }
 			else {
-				list.remove(x);
-				System.out.println("remove successfully");
-				return true;
+				 Scanner scanner = new Scanner(System.in);
+				 System.out.println("enter 1 to remove !");
+				 if(scanner.nextInt()==1) {
+					 list.remove(searchForItem( title));
+						System.out.println("remove successfully");
+						 scanner.nextLine();
+					
+						return true;
+				 }
+				 scanner.nextLine();
+		
+				return false;
 			}
 			
 		}
+		
+		
+		
+		
+
+		// to remove  member from the school library based on name
+		// return true if remove successfully else return false
+			public boolean removeLibraryMember(Name name ) {   	
+
+		     // check if item is exist or not 
+				if(searchForMember( name)==null) {
+
+		        System.out.println("member not found !");
+		        return false;
+		    }
+				else {
+					 Scanner scanner = new Scanner(System.in);
+					 System.out.println("enter 1 to remove !");
+					 if(scanner.nextInt()==1) {
+						 members.remove(searchForMember( name));
+							System.out.println("remove successfully");
+							 scanner.nextLine();
+					
+							return true;
+					 }
+					 scanner.nextLine();
+			
+					return false;
+				}
+				
+			}
 		
 		
 		
@@ -105,9 +170,11 @@ public  class Library {
     // to search for CD based on trackNo
     public  LibraryItem searchForItem(int trackNo) {
     	
+    	
+    	
         for (LibraryItem item : list) {
             // Perform the search based on the provided parameters
-            if ( trackNo== ((CD)item).getTrackNo()){
+            if ( (item instanceof CD) && trackNo== ((CD)item).getTrackNo()){
                 return item;
             }
         }
@@ -124,8 +191,10 @@ public  class Library {
     	
         for (LibraryItem item : list) {
             // Perform the search based on the provided parameters
-            if ( ((Book)item).getAuthor().equals(authororcomposor)||
-            		((CD)item).getComposer().equals(authororcomposor)){
+            if ( ((item instanceof Book)&&((Book)item).
+            		getAuthor().equals(authororcomposor) )||
+            		((item instanceof CD)&&((CD)item).getComposer()
+            				.equals(authororcomposor))){
                 return item;
             }
         }
@@ -137,31 +206,94 @@ public  class Library {
     
     
     
+    // to search for library member (student or professor) based on title
+
+    public  LibraryMember searchForMember(Name name) {
+    	
+        for (LibraryMember m : members) {
+            // Perform the search based on the provided parameters
+            if ( m.getName().equals(name) ) 
+                return m;
+            }
+        
+        
+        return null; // Item not member
+    }
+    
+    
+    
+    
+    
     //  to update an item from the school library. Return true if the item was
     // successfully updated.
-    public boolean updateItem(LibraryItem libraryItem) {
+    public boolean updateItem(String title) {
     	    // Search for the library member in the collection
-    	    int index = list.indexOf(libraryItem);
-
-    	    if (index != -1) {
+    	LibraryItem s=searchForItem(title);
+    	    if (s!= null) {
     	    	 Scanner scanner = new Scanner(System.in);
 
     	    	    // Update the title
     	    	    System.out.print("Enter the updated title: ");
     	    	    String updatedTitle = scanner.nextLine();
-    	    	    list.get(index).setTitle(updatedTitle) ;
+    	    	    s.setTitle(updatedTitle) ;
 
     	    	    // Update the number of copies
     	    	    System.out.print("Enter the updated number of copies: ");
     	    	    int updatedNumberOfCopies = scanner.nextInt();
-    	    	    list.get(index).setNumberOfCopies(updatedNumberOfCopies) ;
+    	    	    s.setNumberOfCopies(updatedNumberOfCopies) ;
 
     	    	    // Update the number of borrows
     	    	    System.out.print("Enter the updated number of borrows: ");
     	    	    int updatedNumberOfBorrows = scanner.nextInt();
-    	    	    list.get(index).setNumberOfborrow(updatedNumberOfBorrows) ;
+    	    	    s.setNumberOfborrow(updatedNumberOfBorrows) ;
 
     	    	    System.out.println("Library item information updated successfully.");
+    	    } else {
+    	        System.out.println("Library iteam not found.");
+    	        return false;
+    	    }
+    	return false;
+      
+    }
+    
+    
+    
+    
+
+    //  to update an member from the school library. Return true if the item was
+    // successfully updated.
+    public boolean updateMember(Name name) {
+    	    // Search for the library member in the collection
+    	LibraryMember m=searchForMember(name);
+    	    if (m!= null) {
+    	    	 Scanner scanner = new Scanner(System.in);
+
+    	    	    // Update the phone Number
+    	    	    System.out.print("Enter the updated phone Number: ");
+    	    	    String updatedphoneNumber = scanner.nextLine();
+    	    	    m.setPhoneNumber(updatedphoneNumber);
+
+    	    	    // Update the email Address
+    	    	    System.out.print("Enter the updated email Address: ");
+    	    	    String updatedemailAddress = scanner.nextLine();
+    	    	    m.setEmailAddress(updatedemailAddress);
+
+    	    	    // Update the address
+    	            System.out.println("Enter the updated country:");
+    	            String country = scanner.nextLine();
+    	            System.out.println("Enter the updated city:");
+    	            String city = scanner.nextLine();
+    	            System.out.println("Enter the updated street:");
+    	            String street = scanner.nextLine();
+    	            System.out.println("Enter the updated building name:");
+    	            String buildingname = scanner.nextLine();
+    	            System.out.println("Enter the updated post office box number:");
+    	            String pobox = scanner.nextLine();
+    	            String address =country+"@"+city+"@"+street+"@"+buildingname+"@"+pobox;
+
+    	            m.setAddress(new Address(address));
+    	            
+    	    	    System.out.println("Library member information updated successfully.");
     	    } else {
     	        System.out.println("Library member not found.");
     	        return false;
@@ -173,7 +305,7 @@ public  class Library {
     
     
     
-
+    
    // to print all the library items along with 
    // their information in a sorted order).
     public void libraryReport() {
@@ -184,6 +316,8 @@ public  class Library {
         //sort the list
         java.util.Collections.sort(list);
         
+        System.out.println("Library iteams: \n\n");
+        
         int i=0;
         // print all item in LibraryItem list 
         for (LibraryItem item : list) {
@@ -191,5 +325,21 @@ public  class Library {
         	 System.out.println("item "+(++i));
             System.out.println(item.toString()+"\n");
         }
+        
+        i=0;
+        System.out.println("\nLibrary members: \n\n");
+        for (LibraryMember m : members) {
+            // Print details of each members
+        	 System.out.println("member "+(++i));
+            System.out.println(m.toString()+"\n");
+        }
     }
+   
+    
+    
+    // to get Items list 
+    protected ArrayList<LibraryItem> getItems(){
+    return list;
+    }
+   
 }
